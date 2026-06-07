@@ -1,0 +1,20 @@
+### Невалідний ID — має бути 404
+GET http://localhost:3000/api/notes
+
+### Помилка валідації — має бути 400 з details
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+
+{
+  "title": "Title1",
+  "content": "test1"
+}
+
+### Невалідний PATCH — теж 400
+PATCH http://localhost:3000/api/notes/якийсь-id
+Content-Type: application/json
+
+{}
+
+### Спробуй "поламати" сервер навмисно — глянемо на 500
+GET http://localhost:3000/api/notes/this-will-throw
