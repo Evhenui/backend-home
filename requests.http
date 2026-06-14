@@ -1,20 +1,17 @@
-### Невалідний ID — має бути 404
+### Перевірка сервера
+GET http://localhost:3000/health
+
+### Усі нотатки (порожній масив)
 GET http://localhost:3000/api/notes
 
-### Помилка валідації — має бути 400 з details
+### Створити нотатку
 POST http://localhost:3000/api/notes
 Content-Type: application/json
 
 {
-  "title": "Title1",
-  "content": "test1"
+  "title": "Перша нотатка",
+  "content": "Це моя перша нотатка"
 }
 
-### Невалідний PATCH — теж 400
-PATCH http://localhost:3000/api/notes/якийсь-id
-Content-Type: application/json
-
-{}
-
-### Спробуй "поламати" сервер навмисно — глянемо на 500
-GET http://localhost:3000/api/notes/this-will-throw
+### Неіснуючий id — має повернути 404
+GET http://localhost:3000/api/notes/неіснуючий
