@@ -1,17 +1,24 @@
-### Перевірка сервера
-GET http://localhost:3000/health
-
-### Усі нотатки (порожній масив)
-GET http://localhost:3000/api/notes
-
-### Створити нотатку
-POST http://localhost:3000/api/notes
+### Register
+POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-  "title": "Перша нотатка",
-  "content": "Це моя перша нотатка"
+  "email": "test@test.com",
+  "password": "password123"
 }
 
-### Неіснуючий id — має повернути 404
-GET http://localhost:3000/api/notes/неіснуючий
+### Login
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@test.com",
+  "password": "password123"
+}
+
+### Get notes without token (має бути 401)
+GET http://localhost:3000/api/notes
+
+### Get notes with token (підстав свій токен з логіну)
+GET http://localhost:3000/api/notes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMmQ2ODYzMC0yYmNlLTQ1YzQtODY4MS1hYTg5MWYyMTI5ZDEiLCJpYXQiOjE3ODE4MTI0MDYsImV4cCI6MTc4MjQxNzIwNn0.xNlAKWMa8sWO-GUC4JodGstsiNUwPm69d8l6a-Q_qhk

@@ -16,3 +16,12 @@ model Note {
 
   @@map("notes")
 }
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("users") 
+}
