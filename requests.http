@@ -1,24 +1,67 @@
-### Register
+### 1. Реєстрація юзера 1
 POST http://localhost:3000/api/auth/register
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "user2@test.com",
   "password": "password123"
 }
 
-### Login
+### 2. Логін юзера 1 (скопіюй token з відповіді нижче в @token1)
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "test@test.com",
+  "email": "user1@test.com",
   "password": "password123"
 }
 
-### Get notes without token (має бути 401)
-GET http://localhost:3000/api/notes
+### 3. Реєстрація юзера 2
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
 
-### Get notes with token (підстав свій токен з логіну)
+{
+  "email": "user2@test.com",
+  "password": "password123"
+}
+
+### 4. Логін юзера 2 (скопіюй token з відповіді нижче в @token2)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "user2@test.com",
+  "password": "password123"
+}
+
+### 5. Юзер 1 створює нотатку (встав токен юзера 1)
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODE5NzE1NjgsImV4cCI6MTc4MjU3NjM2OH0.qUSbLnL41NkV0vvkXSoJLxNE01YcyVuNokFSmNORRRg
+
+{
+  "title": "Нотатка юзера 1",
+  "content": "Це бачить тільки юзер 1"
+}
+
+### 6. Юзер 2 створює свою нотатку (встав токен юзера 2)
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWIyYWQ4ZC05Yjc5LTRjNjUtOGI3Yy0wM2E5MGE0MTdhMGIiLCJpYXQiOjE3ODE5NzE2MzQsImV4cCI6MTc4MjU3NjQzNH0.vAUkOH0d9PH7gOongf-BEvHC1O7OQTnoyZxX0nc2AkU
+
+{
+  "title": "Нотатка юзера 2",
+  "content": "Це бачить тільки юзер 2"
+}
+
+### 7. Юзер 2 запитує всі нотатки — має бачити ТІЛЬКИ свою
 GET http://localhost:3000/api/notes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIyMmQ2ODYzMC0yYmNlLTQ1YzQtODY4MS1hYTg5MWYyMTI5ZDEiLCJpYXQiOjE3ODE4MTI0MDYsImV4cCI6MTc4MjQxNzIwNn0.xNlAKWMa8sWO-GUC4JodGstsiNUwPm69d8l6a-Q_qhk
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWIyYWQ4ZC05Yjc5LTRjNjUtOGI3Yy0wM2E5MGE0MTdhMGIiLCJpYXQiOjE3ODE5NzE2MzQsImV4cCI6MTc4MjU3NjQzNH0.vAUkOH0d9PH7gOongf-BEvHC1O7OQTnoyZxX0nc2AkU
+
+### 8. Юзер 1 запитує всі нотатки — має бачити ТІЛЬКИ свою
+GET http://localhost:3000/api/notes
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODE5NzE1NjgsImV4cCI6MTc4MjU3NjM2OH0.qUSbLnL41NkV0vvkXSoJLxNE01YcyVuNokFSmNORRRg
+
+### 9. Юзер 2 пробує відкрити нотатку юзера 1 за id — має бути 404
+GET http://localhost:3000/api/notes/ID_НОТАТКИ_ЮЗЕРА_1
+Authorization: Bearer ВСТАВ_ТОКЕН_ЮЗЕРА_2
