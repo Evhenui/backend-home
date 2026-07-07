@@ -37,11 +37,12 @@ Content-Type: application/json
 ### 5. Юзер 1 створює нотатку (встав токен юзера 1)
 POST http://localhost:3000/api/notes
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODE5NzE1NjgsImV4cCI6MTc4MjU3NjM2OH0.qUSbLnL41NkV0vvkXSoJLxNE01YcyVuNokFSmNORRRg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM0NTQzNDMsImV4cCI6MTc4NDA1OTE0M30.1VCEQg4sIPlepoCaMVhMwhpElMy0kAv9Pl4SB8btDoo
 
 {
   "title": "Нотатка юзера 1",
-  "content": "Це бачить тільки юзер 1"
+  "content": "Це бачить тільки юзер 1",
+  "tags": ["важливе", "робота", "робота"]
 }
 
 ### 6. Юзер 2 створює свою нотатку (встав токен юзера 2)
@@ -60,7 +61,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWIyY
 
 ### 8. Юзер 1 запитує всі нотатки — має бачити ТІЛЬКИ свою
 GET http://localhost:3000/api/notes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODE5NzE1NjgsImV4cCI6MTc4MjU3NjM2OH0.qUSbLnL41NkV0vvkXSoJLxNE01YcyVuNokFSmNORRRg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM0NTQzNDMsImV4cCI6MTc4NDA1OTE0M30.1VCEQg4sIPlepoCaMVhMwhpElMy0kAv9Pl4SB8btDoo
 
 ### 9. Юзер 2 пробує відкрити нотатку юзера 1 за id — має бути 404
 GET http://localhost:3000/api/notes/ID_НОТАТКИ_ЮЗЕРА_1

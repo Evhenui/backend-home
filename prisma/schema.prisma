@@ -17,7 +17,18 @@ model Note {
   userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
 
+  tags Tag[]
+
   @@map("notes")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+
+  notes Note[]
+
+  @@map("tags")
 }
 
 model User {
