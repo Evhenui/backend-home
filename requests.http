@@ -48,3 +48,15 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
 
 { "tags": ["idea"] }
+
+### Друга сторінка по 5 штук, старі згори
+GET http://localhost:3000/api/notes?page=2&limit=5&order=asc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
+
+### Пошук по заголовку + фільтр за тегом
+GET http://localhost:3000/api/notes?search=план&tag=work
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
+
+### Невалідний query — має бути 400
+GET http://localhost:3000/api/notes?page=abc&sort=password
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc

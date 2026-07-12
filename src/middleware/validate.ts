@@ -19,3 +19,21 @@ export const validateBody = (schema: ZodType) => {
     next();
   };
 };
+
+export const validateQuery = (schema: ZodType) => {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const result = schema.safeParse(req.query);
+
+    if (!result.success) {
+      const details = result.error.issues.map((issue) => ({
+        field: issue.path.join('.'),
+        message: issue.message,
+      }));
+
+      throw new ValidationError(details);
+    }
+
+    (req as any).validatedQuery = result.data;
+    next();
+  };
+};
