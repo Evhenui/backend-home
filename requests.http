@@ -16,24 +16,6 @@ Content-Type: application/json
   "password": "password123"
 }
 
-### 3. Реєстрація юзера 2
-POST http://localhost:3000/api/auth/register
-Content-Type: application/json
-
-{
-  "email": "user2@test.com",
-  "password": "password123"
-}
-
-### 4. Логін юзера 2 (скопіюй token з відповіді нижче в @token2)
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "email": "user2@test.com",
-  "password": "password123"
-}
-
 ### 5. Юзер 1 створює нотатку (встав токен юзера 1)
 POST http://localhost:3000/api/notes
 Content-Type: application/json
@@ -66,3 +48,17 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjO
 ### 9. Юзер 2 пробує відкрити нотатку юзера 1 за id — має бути 404
 GET http://localhost:3000/api/notes/ID_НОТАТКИ_ЮЗЕРА_1
 Authorization: Bearer ВСТАВ_ТОКЕН_ЮЗЕРА_2
+
+### Створити нотатку з тегами
+POST http://localhost:3000/api/notes
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
+
+{ "title": "План тижня", "content": "...", "tags": ["Work", "todo"] }
+
+### Оновити теги (повна заміна списку)
+PATCH http://localhost:3000/api/notes/b0709d9d-99a9-46df-b287-cb47b20ae527
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
+
+{ "tags": ["idea"] }

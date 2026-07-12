@@ -1,6 +1,7 @@
 import { prisma } from '../lib/prisma';
 import { NotFoundError } from '../errors/index.js';
 import { CreateNoteInput, UpdateNoteInput } from '../schemas/note';
+import { ListQuery } from '../schemas/note-query';
 
 export const notesService = {
   async getAll(userId: string, tag?: string) {
@@ -71,5 +72,34 @@ export const notesService = {
     await notesService.getById(id, userId);
 
     await prisma.note.delete({ where: { id } });
+  },
+
+  async list(userId: string, q: ListQuery) {
+    const where = {
+      userId,
+      ...(q.search && { title: { contains: q.search, mode: 'insensitive' as const } }),
+      ...(q.tag && { tags: { some: { name: q.tag } } }),
+    };
+
+    const [data, total] = await Promise.all([
+      prisma.note.findMany({
+        where,
+        include: { tags: true },
+        orderBy: { [q.sort]: q.order },
+        skip: (q.page - 1) * q.limit,
+        take: q.limit,
+      }),
+      prisma.note.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        page: q.page,
+        limit: q.limit,
+        total,
+        totalPages: Math.ceil(total / q.limit),
+      },
+    };
   },
 };
