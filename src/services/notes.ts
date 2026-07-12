@@ -4,17 +4,6 @@ import { CreateNoteInput, UpdateNoteInput } from '../schemas/note';
 import { ListQuery } from '../schemas/note-query';
 
 export const notesService = {
-  async getAll(userId: string, tag?: string) {
-    return prisma.note.findMany({
-      where: {
-        userId,
-        ...(tag && { tags: { some: { name: tag } } }),
-      },
-      include: { tags: true },
-      orderBy: { createdAt: 'desc' },
-    });
-  },
-
   async getById(id: string, userId: string) {
     const note = await prisma.note.findUnique({
       where: { id },

@@ -27,20 +27,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjO
   "tags": ["важливе", "робота", "робота"]
 }
 
-### 6. Юзер 2 створює свою нотатку (встав токен юзера 2)
-POST http://localhost:3000/api/notes
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWIyYWQ4ZC05Yjc5LTRjNjUtOGI3Yy0wM2E5MGE0MTdhMGIiLCJpYXQiOjE3ODE5NzE2MzQsImV4cCI6MTc4MjU3NjQzNH0.vAUkOH0d9PH7gOongf-BEvHC1O7OQTnoyZxX0nc2AkU
-
-{
-  "title": "Нотатка юзера 2",
-  "content": "Це бачить тільки юзер 2"
-}
-
-### 7. Юзер 2 запитує всі нотатки — має бачити ТІЛЬКИ свою
-GET http://localhost:3000/api/notes
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1NWIyYWQ4ZC05Yjc5LTRjNjUtOGI3Yy0wM2E5MGE0MTdhMGIiLCJpYXQiOjE3ODE5NzE2MzQsImV4cCI6MTc4MjU3NjQzNH0.vAUkOH0d9PH7gOongf-BEvHC1O7OQTnoyZxX0nc2AkU
-
 ### 8. Юзер 1 запитує всі нотатки — має бачити ТІЛЬКИ свою
 GET http://localhost:3000/api/notes
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM0NTQzNDMsImV4cCI6MTc4NDA1OTE0M30.1VCEQg4sIPlepoCaMVhMwhpElMy0kAv9Pl4SB8btDoo
