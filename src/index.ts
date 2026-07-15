@@ -1,21 +1,6 @@
-import express from 'express';
-import notesRouter from './routes/notes.js';
-import { errorHandler } from './middleware/errorHandler.js';
-import authRouter from './routes/auth.js';
+import { app } from './app.js';
 
-const app = express();
 const PORT = 3000;
-
-app.use(express.json());
-app.use('/api/auth', authRouter);
-
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy', timestamp: new Date() });
-});
-
-app.use('/api/notes', notesRouter);
-
-app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
