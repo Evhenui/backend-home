@@ -60,3 +60,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjO
 ### Невалідний query — має бути 400
 GET http://localhost:3000/api/notes?page=abc&sort=password
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJhNDRjODEyNi0xMGI4LTRkYWEtYTY1My1lYmQwNWU2NDQwYWIiLCJpYXQiOjE3ODM4NDczMTQsImV4cCI6MTc4NDQ1MjExNH0.IHBaXj2CPWF0VX8YWi_J4xfzy4FkkMscQgRbHHy1gOc
+
+### Login — тепер повертає ДВА токени
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{ "email": "user2@test.com", "password": "password123" }
+
+### Refresh — обмін refresh на нову пару (встав рядок з відповіді логіну)
+POST http://localhost:3000/api/auth/refresh
+Content-Type: application/json
+
+{ "refreshToken": "0a34341850be38b429f778fbd89daaabc963216334b71e9e058e41eb069a932627fb76d354f8713d" }
+
+### Logout — після цього той самий refresh вже не спрацює
+POST http://localhost:3000/api/auth/logout
+Content-Type: application/json
+
+{ "refreshToken": "0a34341850be38b429f778fbd89daaabc963216334b71e9e058e41eb069a932627fb76d354f8713d" }
