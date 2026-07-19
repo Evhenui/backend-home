@@ -1,7 +1,7 @@
 import { app } from './app.js';
+import { logger } from './lib/logger.js';
+import { config } from './config.js';
 
-const PORT = 3000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(config.PORT, () => {
+  logger.info(`Server running on http://localhost:${config.PORT}`);
 });

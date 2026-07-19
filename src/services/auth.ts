@@ -3,13 +3,14 @@ import jwt from 'jsonwebtoken';
 import crypto from 'crypto'; 
 import { prisma } from '../lib/prisma.js';
 import { AppError } from '../errors/index.js';
+import { config } from '../config.js';
 
 const SALT_ROUNDS  = 10;
 const ACCESS_TTL   = '15m';
 const REFRESH_DAYS = 7; 
 
 function signAccessToken(userId: string) {
-  return jwt.sign({ userId }, process.env.JWT_SECRET as string, {
+  return jwt.sign({ userId }, config.JWT_SECRET, {
     expiresIn: ACCESS_TTL,
   });
 }

@@ -20,7 +20,7 @@ export const errorHandler = (
     });
   }
 
-  console.error('Unexpected error:', err);
+  req.log.error({ err }, 'Unexpected error');
 
   res.status(500).json({
     error: 'Internal server error',
