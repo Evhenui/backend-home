@@ -8,6 +8,7 @@ import { apiLimiter, authLimiter } from './middleware/rateLimit.js';
 import helmet from 'helmet';                 
 import cors from 'cors';                     
 import { config } from './config.js';      
+import { prisma } from './lib/prisma.js';
 
 export const app = express();
 
@@ -26,8 +27,13 @@ app.use('/api', apiLimiter);
 
 app.use('/api/auth', authRouter);
 
-app.get('/health', (req, res) => {
-  res.json({ status: 'healthy', timestamp: new Date() });
+app.get('/health', async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    res.json({ status: 'ok' });
+  } catch {
+    res.status(503).json({ status: 'db_unavailable' });
+  }
 });
 
 app.use('/api/notes', notesRouter);
