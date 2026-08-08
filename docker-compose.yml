@@ -14,5 +14,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  app:            
+    build: .                   
+    container_name: notes-api
+    restart: unless-stopped
+    depends_on:
+      - postgres     
+    environment:
+      DATABASE_URL: postgresql://notes_user:notes_password@postgres:5432/notes_db
+      JWT_SECRET: change-me-super-secret-at-least-32-chars
+      NODE_ENV: production
+    ports:
+      - '3000:3000'
+
 volumes:
   postgres_data:
