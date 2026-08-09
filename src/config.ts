@@ -8,6 +8,8 @@ const envSchema = z.object({
   JWT_SECRET:   z.string().min(32, 'JWT_SECRET must be at least 32 chars'),
   LOG_LEVEL:    z.enum(['debug', 'info', 'warn', 'error']).default('info'),
   CORS_ORIGIN:  z.url().default('http://localhost:5173'),
+  REDIS_HOST:   z.string().default('localhost'),
+  REDIS_PORT:   z.coerce.number().default(6379),  
 });
 
 export const config = envSchema.parse(process.env);

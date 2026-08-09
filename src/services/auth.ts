@@ -4,6 +4,7 @@ import crypto from 'crypto';
 import { prisma } from '../lib/prisma.js';
 import { AppError } from '../errors/index.js';
 import { config } from '../config.js';
+import { emailQueue } from '../queue/email.queue.js';
 
 const SALT_ROUNDS  = 10;
 const ACCESS_TTL   = '15m';
@@ -37,6 +38,12 @@ export const authService = {
     const user = await prisma.user.create({
       data: { email, password: hashedPassword },
     });
+
+    await emailQueue.add(
+      'welcome',                            
+      { email: user.email },      
+      { attempts: 3, backoff: { type: 'exponential', delay: 5000 } },
+    );
 
     return { id: user.id, email: user.email };
   },
