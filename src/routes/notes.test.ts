@@ -1,7 +1,11 @@
 import request from 'supertest';
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { app } from '../app.js';
 import { prisma } from '../lib/prisma.js';
+
+vi.mock('../queue/email.queue.js', () => ({
+  emailQueue: { add: vi.fn() },
+}));
 
 describe('/api/notes', () => {
   let token: string;
