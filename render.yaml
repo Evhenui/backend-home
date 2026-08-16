@@ -6,7 +6,6 @@ services:
     plan: free
     autoDeploy: false 
     healthCheckPath: /health 
-    preDeployCommand: npx prisma migrate deploy 
     envVars:
       - key: NODE_ENV
         value: production
