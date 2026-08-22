@@ -4,6 +4,11 @@ vi.mock('../lib/prisma.js', () => ({
   prisma: { note: { findUnique: vi.fn() } },
 }));
 
+vi.mock('../lib/cache.js', () => ({                          // ← нове
+  remember: (key: string, ttl: number, loader: () => Promise<any>) => loader(),
+  invalidate: vi.fn(),
+}));
+
 import { notesService } from './notes.js';
 import { prisma } from '../lib/prisma.js';
 import { NotFoundError } from '../errors/index.js';
