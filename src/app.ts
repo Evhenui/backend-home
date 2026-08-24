@@ -44,6 +44,6 @@ app.get('/health', async (_req, res) => {
 
 app.use('/api/notes', notesRouter);
 app.use('/api/auth', authRouter);
-app.use(yoga.graphqlEndpoint, yoga);
+app.use(yoga.graphqlEndpoint, (req, res) => yoga(req, res));
 
 app.use(errorHandler);
