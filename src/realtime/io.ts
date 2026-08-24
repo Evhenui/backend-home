@@ -36,5 +36,6 @@ export function initRealtime(httpServer: HttpServer) {
 }
 
 export function notifyUser(userId: string, event: string, payload: unknown) {
+  if (!io) return;  
   io.to(`user:${userId}`).emit(event, payload);
 }

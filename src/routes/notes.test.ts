@@ -1,5 +1,10 @@
 import request from 'supertest';
 import { describe, it, expect, beforeEach, vi } from 'vitest';
+
+vi.mock('../realtime/io.js', () => ({ 
+  notifyUser: vi.fn(),
+}));
+
 import { app } from '../app.js';
 import { prisma } from '../lib/prisma.js';
 
