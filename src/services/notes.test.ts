@@ -4,7 +4,7 @@ vi.mock('../lib/prisma.js', () => ({
   prisma: { note: { findUnique: vi.fn() } },
 }));
 
-vi.mock('../lib/cache.js', () => ({                          // ← нове
+vi.mock('../lib/cache.js', () => ({     
   remember: (key: string, ttl: number, loader: () => Promise<any>) => loader(),
   invalidate: vi.fn(),
 }));

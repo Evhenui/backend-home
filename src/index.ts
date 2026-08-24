@@ -2,10 +2,13 @@ import { app } from './app.js';
 import { prisma } from './lib/prisma.js';
 import { logger } from './lib/logger.js';
 import { config } from './config.js';
+import { initRealtime } from './realtime/io.js';
 
 const server = app.listen(config.PORT, () => {
   logger.info(`Server running on http://localhost:${config.PORT}`);
 });
+
+initRealtime(server);
 
 async function shutdown(signal: string) {
   logger.info(`${signal} received — shutting down gracefully`);

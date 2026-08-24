@@ -3,6 +3,7 @@ import { NotFoundError } from '../errors/index.js';
 import { CreateNoteInput, UpdateNoteInput } from '../schemas/note';
 import { ListQuery } from '../schemas/note-query';
 import { remember, invalidate } from '../lib/cache.js'; 
+import { notifyUser } from '../realtime/io.js';
 
 const noteKey = (userId: string, id: string) => `note:${userId}:${id}`;
 
@@ -24,7 +25,7 @@ export const notesService = {
   async create(data: CreateNoteInput, userId: string) {
     const { tags = [], ...noteData } = data;
 
-    return prisma.note.create({
+    const note = await prisma.note.create({
       data: {
         ...noteData,
         userId,
@@ -37,6 +38,10 @@ export const notesService = {
       },
       include: { tags: true },
     });
+
+    notifyUser(userId, 'note:created', note); 
+
+    return note;
   },
 
   async update(id: string, data: UpdateNoteInput, userId: string) {
