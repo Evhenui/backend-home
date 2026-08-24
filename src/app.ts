@@ -9,13 +9,21 @@ import helmet from 'helmet';
 import cors from 'cors';                     
 import { config } from './config.js';      
 import { prisma } from './lib/prisma.js';
+import { yoga } from './graphql/index.js';
 
 export const app = express();
 
 app.set('trust proxy', 1);  
 
 app.use(pinoHttp({ logger }));
-app.use(helmet());
+
+app.use((req, res, next) => {
+  if (req.path.startsWith(yoga.graphqlEndpoint)) {
+    return helmet({ contentSecurityPolicy: false })(req, res, next);
+  }
+  return helmet()(req, res, next);
+});
+
 app.use(cors({
   origin: config.CORS_ORIGIN,
   credentials: true, 
@@ -23,9 +31,7 @@ app.use(cors({
 app.use(express.json());
 
 app.use('/api/auth/login', authLimiter);
-app.use('/api', apiLimiter); 
-
-app.use('/api/auth', authRouter);
+app.use('/api', apiLimiter);
 
 app.get('/health', async (_req, res) => {
   try {
@@ -37,5 +43,7 @@ app.get('/health', async (_req, res) => {
 });
 
 app.use('/api/notes', notesRouter);
+app.use('/api/auth', authRouter);
+app.use(yoga.graphqlEndpoint, yoga);
 
 app.use(errorHandler);
